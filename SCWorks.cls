@@ -269,6 +269,12 @@
     \renewcommand{\maketitle}{\RefMakeTitle}
     \typework{\cyr\cyrn\cyra\cyrp\cyri\cyrs\cyra\cyrn}
 }
+\DeclareOption{otchet}{%
+    \worktype{\cyr\CYRO\cyrt\cyrch\cyre\cyrt}
+    \workname{\MakeUppercase{\@worktype}}
+    \renewcommand{\maketitle}{\RefMakeTitle}
+    \typework{\cyr\cyrn\cyra\cyrp\cyri\cyrs\cyra\cyrn}
+}
 \DeclareOption{labwork}{%
     \worktype{\cyr\CYRL\cyra\cyrb\cyro\cyrr\cyra\cyrt\cyro\cyrr\cyrn\cyra\cyrya\ \cyrr\cyra\cyrb\cyro\cyrt\cyra}
     \workname{\MakeUppercase{\@worktype}}
