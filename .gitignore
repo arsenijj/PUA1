@@ -5,7 +5,8 @@
 *.fls
 *.log
 *.out
-*.pdf
 *.gz
 *.toc
+*s.cls
+
 
