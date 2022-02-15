@@ -1,3 +1,6 @@
+list_for_equivalent_closure = set()
+
+
 def make_set(matrix, size):
 
     set_view = []
@@ -25,6 +28,7 @@ def make_reflexive(matrix, size):
     for i in range(size):
         if matrix[i][i] == 0:
             m_reflexive.append((i + 1, i + 1))
+            list_for_equivalent_closure.add((i + 1, i + 1))
 
     print(*sorted(m_reflexive), sep=', ', end='}\n\n')
 
@@ -37,6 +41,7 @@ def make_symmetric(matrix, size):
         for j in range(size):
             if matrix[i][j] == 1 and matrix[j][i] == 0:
                 m_symmetric.append((j + 1, i + 1))
+                list_for_equivalent_closure.add((j + 1, i + 1))
 
     print(*sorted(m_symmetric), sep=', ', end='}\n\n')
 
@@ -50,6 +55,7 @@ def make_transitive(matrix, size):
             for j in range(size):
                 if matrix[k][i] == matrix[i][j] == 1 and matrix[k][j] == 0:
                     m_transitive.append((k + 1, j + 1))
+                    list_for_equivalent_closure.add((k + 1, j + 1))
 
     print(*sorted(m_transitive), sep=', ', end='}\n\n')
 
@@ -61,7 +67,6 @@ def is_transitive(matrix, size):
             for j in range(size):
                 if matrix[k][i] == matrix[i][j] == 1 and matrix[k][j] == 0:
                     return False
-
     return True
 
 
@@ -105,62 +110,53 @@ def get_data():
     return m, sorted(m_set), n
 
 
-
-
 matrix, matrix_set, size = get_data()
 
-print('Свойства бинарного отношения:\n')
-
+print('Свойства бинарного отношения:')
 
 reflexive, anti_reflexive = is_reflexive_or_anti_reflexive(matrix, size)
-
 if reflexive:
-    print('Отношение является рефлексивным\n')
+    print('Отношение является рефлексивным')
 elif not reflexive:
-    print('Отношение не является рефлексивным\n')
+    print('Отношение не является рефлексивным')
 elif anti_reflexive:
-    print('Отношение является антирефлексивным\n')
+    print('Отношение является антирефлексивным')
 else:
-    print('Отношение не является антирефлексивным\n')
+    print('Отношение не является антирефлексивным')
 
 
 symmetric, antisymmetric = is_symmetric_or_antisymmetric(matrix, size)
-
 if symmetric:
-    print('Отношение является симметричным\n')
+    print('Отношение является симметричным')
 elif not symmetric:
-    print('Отношение не является симметричным\n')
+    print('Отношение не является симметричным')
 elif antisymmetric:
-    print('Отношение является антисимметричным\n')
+    print('Отношение является антисимметричным')
 else:
-    print('Отношение не является антисимметричным\n')
+    print('Отношение не является антисимметричным')
 
 
 transitive = is_transitive(matrix, size)
-
 if transitive:
-    print('Отношение является транзитивным\n')
+    print('Отношение является транзитивным')
 else:
-    print('Отношение не является транзитивным\n')
-
+    print('Отношение не является транзитивным')
 
 print('\n')
-print('Тип бинарного отношения:\n')
+print('Тип бинарного отношения:')
 
 quasi_order = True if transitive and reflexive else False
-
 if quasi_order:
-    print('Отношение является отношением квазипорядка\n')
+    print('Отношение является отношением квазипорядка')
     if quasi_order and symmetric:
-        print('Отношение является отношением эквивалентности\n')
+        print('Отношение является отношением эквивалентности')
     if quasi_order and antisymmetric:
-        print('Отношение является отношением частичного порядка\n')
+        print('Отношение является отношением частичного порядка')
 else:
-    print('Отношение не является отношением квазипорядка\n')
-
+    print('Отношение не является ни отношением квазипорядка, ни эквивалентности, ни частичного порядка')
+print('\n')
 
 matrix_set_view(matrix_set)
-
 if not reflexive:
     print('Замыкание отношения относительно рефлексивности: ', end='')
     matrix_set_view(matrix_set, 1)
@@ -176,6 +172,9 @@ if not transitive:
     matrix_set_view(matrix_set, 1)
     make_transitive(matrix, size)
 
+print('Замыкание отношения относительно эквивалентности: ', end='')
+matrix_set_view(matrix_set, 1)
+print(*sorted(list_for_equivalent_closure), sep=', ', end='}\n\n')
 '''
 Примеры входных данных:
 
