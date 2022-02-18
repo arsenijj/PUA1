@@ -46,18 +46,17 @@ def make_symmetric(matrix, size):
     print(*sorted(m_symmetric), sep=', ', end='}\n\n')
 
 
-def make_transitive(matrix, size):
+def make_transitive(copy, size):
 
     m_transitive = []
-
-    for k in range(size):
-        for i in range(size):
-            for j in range(size):
-                if matrix[k][i] == matrix[i][j] == 1 and matrix[k][j] == 0:
-                    m_transitive.append((k + 1, j + 1))  
-                    
-                    # m_transitive.append((k + 1, k + 1))      
-                    list_for_equivalent_closure.add((k + 1, j + 1))
+    for _ in range(size):
+        for k in range(size):
+            for i in range(size):
+                for j in range(size):
+                    if copy[k][i] == copy[i][j] == 1 and copy[k][j] == 0:
+                        m_transitive.append((k + 1, j + 1))
+                        copy[k][j] = 1
+                        list_for_equivalent_closure.add((k + 1, j + 1))
 
     print(*sorted(m_transitive), sep=', ', end='}\n\n')
 
@@ -81,9 +80,9 @@ def is_symmetric_or_antisymmetric(matrix, size):
         for j in range(size):
             if not matrix[i][j] == matrix[j][i]:
                 flag_symmetric = False
-            elif matrix[i][j] == matrix[j][i] and not i == j:
+            if matrix[i][j] == matrix[j][i] == 1 and i != j:
                 flag_antisymmetric = False
-            elif not flag_symmetric and not flag_antisymmetric:
+            if not flag_symmetric and not flag_antisymmetric:
                 return False, False
 
     return flag_symmetric, flag_antisymmetric
@@ -121,7 +120,7 @@ if reflexive:
     print('Отношение является рефлексивным')
 elif not reflexive:
     print('Отношение не является рефлексивным')
-elif anti_reflexive:
+if anti_reflexive:
     print('Отношение является антирефлексивным')
 else:
     print('Отношение не является антирефлексивным')
@@ -132,7 +131,7 @@ if symmetric:
     print('Отношение является симметричным')
 elif not symmetric:
     print('Отношение не является симметричным')
-elif antisymmetric:
+if antisymmetric:
     print('Отношение является антисимметричным')
 else:
     print('Отношение не является антисимметричным')
@@ -170,15 +169,18 @@ if not symmetric:
     make_symmetric(matrix, size)
 
 if not transitive:
+    copy = matrix
     print('Замыкание отношения относительно транзитивности: ', end='')
     matrix_set_view(matrix_set, 1)
-    make_transitive(matrix, size)
+    make_transitive(copy, size)
 
-print('Замыкание отношения относительно эквивалентности: ', end='')
+
+print('Замыкание отношения относительно эквивалентности: ')
 matrix_set_view(matrix_set, 1)
 print(*sorted(list_for_equivalent_closure), sep=', ', end='}\n\n')
-# '''
-# Примеры входных данных:
+
+'''
+Примеры входных данных:
 
 # 4
 # 0 1 1 0
@@ -192,9 +194,8 @@ print(*sorted(list_for_equivalent_closure), sep=', ', end='}\n\n')
 # 0 0 0 1
 # 0 1 0 0
 
-
-# 3
+# 3 
 # 0 1 0
 # 0 0 1
 # 1 0 0
-# '''
+'''
