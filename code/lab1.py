@@ -120,7 +120,7 @@ if reflexive:
     print('Отношение является рефлексивным')
 elif not reflexive:
     print('Отношение не является рефлексивным')
-elif anti_reflexive:
+if anti_reflexive:
     print('Отношение является антирефлексивным')
 else:
     print('Отношение не является антирефлексивным')
@@ -131,7 +131,7 @@ if symmetric:
     print('Отношение является симметричным')
 elif not symmetric:
     print('Отношение не является симметричным')
-elif antisymmetric:
+if antisymmetric:
     print('Отношение является антисимметричным')
 else:
     print('Отношение не является антисимметричным')
