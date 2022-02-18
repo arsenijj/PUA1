@@ -54,7 +54,9 @@ def make_transitive(matrix, size):
         for i in range(size):
             for j in range(size):
                 if matrix[k][i] == matrix[i][j] == 1 and matrix[k][j] == 0:
-                    m_transitive.append((k + 1, j + 1))
+                    m_transitive.append((k + 1, j + 1))  
+                    
+                    # m_transitive.append((k + 1, k + 1))      
                     list_for_equivalent_closure.add((k + 1, j + 1))
 
     print(*sorted(m_transitive), sep=', ', end='}\n\n')
@@ -175,18 +177,24 @@ if not transitive:
 print('Замыкание отношения относительно эквивалентности: ', end='')
 matrix_set_view(matrix_set, 1)
 print(*sorted(list_for_equivalent_closure), sep=', ', end='}\n\n')
-'''
-Примеры входных данных:
+# '''
+# Примеры входных данных:
 
-4
-0 1 1 0
-1 1 1 0
-0 1 1 0
-0 0 0 1
+# 4
+# 0 1 1 0
+# 1 1 1 0
+# 0 1 1 0
+# 0 0 0 1
 
-4
-0 1 0 0
-0 0 0 0
-0 0 0 1
-0 1 0 0
-'''
+# 4
+# 0 1 0 0
+# 0 0 0 0
+# 0 0 0 1
+# 0 1 0 0
+
+
+# 3
+# 0 1 0
+# 0 0 1
+# 1 0 0
+# '''
