@@ -46,16 +46,17 @@ def make_symmetric(matrix, size):
     print(*sorted(m_symmetric), sep=', ', end='}\n\n')
 
 
-def make_transitive(matrix, size):
+def make_transitive(copy, size):
 
     m_transitive = []
-
-    for k in range(size):
-        for i in range(size):
-            for j in range(size):
-                if matrix[k][i] == matrix[i][j] == 1 and matrix[k][j] == 0:
-                    m_transitive.append((k + 1, j + 1))
-                    list_for_equivalent_closure.add((k + 1, j + 1))
+    for _ in range(size):
+        for k in range(size):
+            for i in range(size):
+                for j in range(size):
+                    if copy[k][i] == copy[i][j] == 1 and copy[k][j] == 0:
+                        m_transitive.append((k + 1, j + 1))
+                        copy[k][j] = 1
+                        list_for_equivalent_closure.add((k + 1, j + 1))
 
     print(*sorted(m_transitive), sep=', ', end='}\n\n')
 
@@ -168,13 +169,16 @@ if not symmetric:
     make_symmetric(matrix, size)
 
 if not transitive:
+    copy = matrix
     print('Замыкание отношения относительно транзитивности: ', end='')
     matrix_set_view(matrix_set, 1)
-    make_transitive(matrix, size)
+    make_transitive(copy, size)
 
-print('Замыкание отношения относительно эквивалентности: ', end='')
+
+print('Замыкание отношения относительно эквивалентности: ')
 matrix_set_view(matrix_set, 1)
 print(*sorted(list_for_equivalent_closure), sep=', ', end='}\n\n')
+
 '''
 Примеры входных данных:
 
@@ -189,4 +193,9 @@ print(*sorted(list_for_equivalent_closure), sep=', ', end='}\n\n')
 0 0 0 0
 0 0 0 1
 0 1 0 0
+
+3 
+0 1 0
+0 0 1
+1 0 0
 '''
