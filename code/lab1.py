@@ -80,9 +80,9 @@ def is_symmetric_or_antisymmetric(matrix, size):
         for j in range(size):
             if not matrix[i][j] == matrix[j][i]:
                 flag_symmetric = False
-            elif matrix[i][j] == matrix[j][i] and not i == j:
+            if matrix[i][j] == matrix[j][i] == 1 and i != j:
                 flag_antisymmetric = False
-            elif not flag_symmetric and not flag_antisymmetric:
+            if not flag_symmetric and not flag_antisymmetric:
                 return False, False
 
     return flag_symmetric, flag_antisymmetric
@@ -182,20 +182,20 @@ print(*sorted(list_for_equivalent_closure), sep=', ', end='}\n\n')
 '''
 Примеры входных данных:
 
-4
-0 1 1 0
-1 1 1 0
-0 1 1 0
-0 0 0 1
+# 4
+# 0 1 1 0
+# 1 1 1 0
+# 0 1 1 0
+# 0 0 0 1
 
-4
-0 1 0 0
-0 0 0 0
-0 0 0 1
-0 1 0 0
+# 4
+# 0 1 0 0
+# 0 0 0 0
+# 0 0 0 1
+# 0 1 0 0
 
-3 
-0 1 0
-0 0 1
-1 0 0
+# 3 
+# 0 1 0
+# 0 0 1
+# 1 0 0
 '''
